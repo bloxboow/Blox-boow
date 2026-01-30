@@ -3,84 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Boow - Loja Oficial</title>
+    <title>Blox Boow | Official Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #7289da;
-            --bg: #0f0f0f;
-            --card: #1a1a1a;
-            --text: #ffffff;
-            --success: #2ecc71;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; text-align: center; }
-        h1 { color: var(--primary); margin-bottom: 30px; text-shadow: 0 0 10px rgba(114, 137, 218, 0.5); }
-        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; }
-        .produto { background: var(--card); border: 1px solid #333; padding: 15px; border-radius: 12px; width: 200px; transition: transform 0.2s; }
-        .produto:hover { transform: scale(1.05); border-color: var(--primary); }
-        .produto img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
-        .preco { color: var(--success); font-weight: bold; font-size: 1.2em; margin: 10px 0; }
-        .btn-comprar { background: var(--success); color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .btn-comprar:hover { background: #27ae60; }
-        #admin-link { margin-top: 50px; color: #444; font-size: 0.8em; cursor: pointer; text-decoration: underline; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: url('https://i.postimg.cc/JhSgZK5H/LOGO-GIF.gif') no-repeat center center fixed; background-size: cover; color: white; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: -1; }
+        .container { width: 100%; max-width: 550px; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(0, 212, 255, 0.4); border-radius: 25px; padding: 30px; text-align: center; }
+        h1 { font-family: 'Orbitron', sans-serif; color: #00d4ff; text-shadow: 0 0 15px #00d4ff; margin-bottom: 20px; }
+        .step-page { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .product { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .btn-add { background: #00d4ff; color: #000; border: none; padding: 8px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .pix-box { background: rgba(0, 255, 100, 0.1); border: 2px dashed #00ff64; padding: 20px; border-radius: 15px; margin: 20px 0; }
+        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; margin-top: 10px; }
+        .btn-next { background: #00d4ff; color: black; }
+        .footer-lock { margin-top: 30px; font-size: 0.6rem; opacity: 0.3; cursor: pointer; }
     </style>
 </head>
 <body>
+<div class="overlay"></div>
 
-    <h1>💎 BLOX BOOW 💎</h1>
-    
-    <div class="container" id="lista-produtos">
+<div class="container">
+    <h1>BLOX BOOW</h1>
+
+    <div id="page-shop" class="step-page active">
+        <div id="shop-items" style="max-height: 400px; overflow-y: auto; padding-right: 10px;"></div>
+        <div style="margin-top:20px; border-top:1px solid #333; padding-top:20px;">
+            <p style="font-size:1.5rem; margin:15px 0;">Total: <span id="totalDisplay" style="color:#00d4ff">R$ 0</span></p>
+            <button class="btn-action btn-next" onclick="irParaPagamento()">PAGAR AGORA</button>
         </div>
+    </div>
 
-    <div id="admin-link" onclick="loginAdm()">PAINEL ADMINISTRATIVO</div>
+    <div id="page-pay" class="step-page">
+        <h2 style="color:#00ff64">💎 PAGAMENTO</h2>
+        <div class="pix-box">
+            <p>CHAVE PIX:</p>
+            <strong id="pixDisplay">SUA_CHAVE_AQUI</strong>
+        </div>
+        <button class="btn-action btn-next" onclick="window.open('SEU_LINK_DISCORD_AQUI')">ABRIR DISCORD</button>
+    </div>
 
-    <script>
-        // === CONFIGURAÇÕES GERAIS (ALTERE AQUI) ===
-        const config = {
-            pix: "COLOQUE_SEU_PIX_AQUI", // Sua chave PIX
-            discord: "https://discord.gg/SEU_LINK", // Link do seu servidor
-            senha: "pablo08102009@" // Sua senha de acesso
-        };
+    <div class="footer-lock">SISTEMA ATUALIZADO VIA GITHUB</div>
+</div>
 
-        // === LISTA DE PRODUTOS (ALTERE PREÇOS E NOMES AQUI) ===
-        const produtos = [
-            { id: 1, nome: "Fruta Dragon", preco: 50.00, img: "https://via.placeholder.com/150?text=Dragon" },
-            { id: 2, nome: "Fruta Kitsune", preco: 100.00, img: "https://via.placeholder.com/150?text=Kitsune" },
-            { id: 3, nome: "Dough", preco: 35.00, img: "https://via.placeholder.com/150?text=Dough" },
-            { id: 4, nome: "Gamepass 2x Money", preco: 40.00, img: "https://via.placeholder.com/150?text=Gamepass" }
-        ];
+<script>
+    // ==========================================
+    // 🛠️ LISTA DE PRODUTOS (PARA VOCÊ ALTERAR NO GITHUB)
+    // ==========================================
+    const produtosOficiais = [
+        {nome: "Teste 1", preco: 0}, {nome: "Teste 2", preco: 0},
+        {nome: "Teste 3", preco: 0}, {nome: "Teste 4", preco: 0},
+        {nome: "Teste 5", preco: 0}, {nome: "Teste 6", preco: 0},
+        {nome: "Teste 7", preco: 0}, {nome: "Teste 8", preco: 0},
+        {nome: "Teste 9", preco: 0}, {nome: "Teste 10", preco: 0},
+        {nome: "Teste 11", preco: 0}, {nome: "Teste 12", preco: 0},
+        {nome: "Teste 13", preco: 0}, {nome: "Teste 14", preco: 0},
+        {nome: "Teste 15", preco: 0}
+    ];
 
-        // Função para carregar os itens na tela
-        function renderizarProdutos() {
-            const lista = document.getElementById('lista-produtos');
-            lista.innerHTML = produtos.map(p => `
-                <div class="produto">
-                    <img src="${p.img}" alt="${p.nome}">
-                    <h3>${p.nome}</h3>
-                    <div class="preco">R$ ${p.preco.toFixed(2)}</div>
-                    <button class="btn-comprar" onclick="checkout(${p.id})">Comprar Agora</button>
-                </div>
-            `).join('');
-        }
+    let total = 0;
+    function renderShop() {
+        const container = document.getElementById('shop-items');
+        container.innerHTML = produtosOficiais.map((p) => `
+            <div class="product">
+                <span>${p.nome} - <b>R$ ${p.preco}</b></span>
+                <button class="btn-add" onclick="adicionar(${p.preco})">+</button>
+            </div>
+        `).join('');
+    }
 
-        // Função de compra
-        function checkout(id) {
-            const p = produtos.find(item => item.id === id);
-            const msg = `🛒 *PEDIDO - BLOX BOOW*\n\nProduto: ${p.nome}\nValor: R$ ${p.preco.toFixed(2)}\n\nPagamento via PIX: ${config.pix}\n\nEnvie o comprovante no Discord: ${config.discord}`;
-            alert(msg);
-        }
+    function adicionar(preco) {
+        total += preco;
+        document.getElementById('totalDisplay').innerText = `R$ ${total}`;
+    }
 
-        // Função do Painel ADM
-        function loginAdm() {
-            const tentativa = prompt("Digite a senha do administrador:");
-            if (tentativa === config.senha) {
-                alert("Acesso Autorizado! Pablo, para alterar preços ou produtos para todos os clientes, edite o código no seu GitHub.");
-            } else {
-                alert("Senha Incorreta.");
-            }
-        }
+    function irParaPagamento() {
+        if(total === 0) return alert("Selecione um item!");
+        document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-pay').classList.add('active');
+    }
 
-        // Iniciar site
-        renderizarProdutos();
-    </script>
+    window.onload = renderShop;
+</script>
 </body>
 </html>
