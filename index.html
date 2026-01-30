@@ -1,91 +1,219 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Boow | Official Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: url('https://i.postimg.cc/JhSgZK5H/LOGO-GIF.gif') no-repeat center center fixed; background-size: cover; color: white; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: -1; }
-        .container { width: 100%; max-width: 550px; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(0, 212, 255, 0.4); border-radius: 25px; padding: 30px; text-align: center; }
-        h1 { font-family: 'Orbitron', sans-serif; color: #00d4ff; text-shadow: 0 0 15px #00d4ff; margin-bottom: 20px; }
-        .step-page { display: none; animation: fadeIn 0.5s ease-in-out; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .product { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .btn-add { background: #00d4ff; color: #000; border: none; padding: 8px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .pix-box { background: rgba(0, 255, 100, 0.1); border: 2px dashed #00ff64; padding: 20px; border-radius: 15px; margin: 20px 0; }
-        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; margin-top: 10px; }
-        .btn-next { background: #00d4ff; color: black; }
-        .footer-lock { margin-top: 30px; font-size: 0.6rem; opacity: 0.3; cursor: pointer; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blox Boow | Official Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+background:url('https://i.postimg.cc/JhSgZK5H/LOGO-GIF.gif') no-repeat center center fixed;
+background-size:cover;
+color:white;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px
+}
+.overlay{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.75);
+z-index:-1
+}
+.container{
+width:100%;
+max-width:550px;
+background:rgba(0,0,0,.85);
+border:1px solid rgba(0,212,255,.4);
+border-radius:25px;
+padding:30px;
+text-align:center
+}
+h1{
+font-family:'Orbitron',sans-serif;
+color:#00d4ff;
+text-shadow:0 0 15px #00d4ff;
+margin-bottom:20px
+}
+.step-page{display:none}
+.active{display:block}
+.product{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+padding:15px;
+border-radius:12px;
+display:flex;
+justify-content:space-between;
+margin-bottom:10px
+}
+.btn-add{
+background:#00d4ff;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer
+}
+.btn-action{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px
+}
+.btn-next{background:#00d4ff}
+.pix-box{
+border:2px dashed #00ff64;
+padding:20px;
+border-radius:15px;
+margin:20px 0
+}
+.footer-lock{
+margin-top:30px;
+font-size:.6rem;
+opacity:.3
+}
+</style>
 </head>
+
 <body>
 <div class="overlay"></div>
 
 <div class="container">
-    <h1>BLOX BOOW</h1>
+<h1>BLOX BOOW</h1>
 
-    <div id="page-shop" class="step-page active">
-        <div id="shop-items" style="max-height: 400px; overflow-y: auto; padding-right: 10px;"></div>
-        <div style="margin-top:20px; border-top:1px solid #333; padding-top:20px;">
-            <p style="font-size:1.5rem; margin:15px 0;">Total: <span id="totalDisplay" style="color:#00d4ff">R$ 0</span></p>
-            <button class="btn-action btn-next" onclick="irParaPagamento()">PAGAR AGORA</button>
-        </div>
-    </div>
+<!-- LOJA -->
+<div id="page-shop" class="step-page active">
+<div id="shop-items"></div>
 
-    <div id="page-pay" class="step-page">
-        <h2 style="color:#00ff64">💎 PAGAMENTO</h2>
-        <div class="pix-box">
-            <p>CHAVE PIX:</p>
-            <strong id="pixDisplay">SUA_CHAVE_AQUI</strong>
-        </div>
-        <button class="btn-action btn-next" onclick="window.open('SEU_LINK_DISCORD_AQUI')">ABRIR DISCORD</button>
-    </div>
+<p style="margin:15px 0;font-size:1.5rem">
+Total: <span id="totalDisplay" style="color:#00d4ff">R$ 0</span>
+</p>
 
-    <div class="footer-lock">SISTEMA ATUALIZADO VIA GITHUB</div>
+<button class="btn-action btn-next" onclick="irParaPagamento()">PAGAR AGORA</button>
+</div>
+
+<!-- PAGAMENTO -->
+<div id="page-pay" class="step-page">
+<h2 style="color:#00ff64">💎 PAGAMENTO</h2>
+
+<div class="pix-box">
+<p>CHAVE PIX:</p>
+<strong>SUA_CHAVE_PIX_AQUI</strong>
+</div>
+
+<button class="btn-action btn-next" onclick="abrirDiscord()">
+ABRIR DISCORD
+</button>
+</div>
+
+<div class="footer-lock">SISTEMA ATUALIZADO VIA GITHUB</div>
 </div>
 
 <script>
-    // ==========================================
-    // 🛠️ LISTA DE PRODUTOS (PARA VOCÊ ALTERAR NO GITHUB)
-    // ==========================================
-    const produtosOficiais = [
-        {nome: "pablo", preco: 10}, {nome: "Teste 2", preco: 0},
-        {nome: "Teste 3", preco: 0}, {nome: "Teste 4", preco: 0},
-        {nome: "Teste 5", preco: 0}, {nome: "Teste 6", preco: 0},
-        {nome: "Teste 7", preco: 0}, {nome: "Teste 8", preco: 0},
-        {nome: "Teste 9", preco: 0}, {nome: "Teste 10", preco: 0},
-        {nome: "Teste 11", preco: 0}, {nome: "Teste 12", preco: 0},
-        {nome: "Teste 13", preco: 0}, {nome: "Teste 14", preco: 0},
-        {nome: "Teste 15", preco: 0}
-    ];
+/* ================= CONFIG ================= */
+const WEBHOOK = "https://discord.com/api/webhooks/1466873848875061258/US-251gFKPtONW0j7WxwZQeLUdyAbjbPAL6NgZ-ptH7IwX3pSTdmGLecotmlJJ2MivZn";
+const LINK_DISCORD = "COLE_SEU_LINK_AQUI";
 
-    let total = 0;
-    function renderShop() {
-        const container = document.getElementById('shop-items');
-        container.innerHTML = produtosOficiais.map((p) => `
-            <div class="product">
-                <span>${p.nome} - <b>R$ ${p.preco}</b></span>
-                <button class="btn-add" onclick="adicionar(${p.preco})">+</button>
-            </div>
-        `).join('');
-    }
+/* ================= PRODUTOS ================= */
+const produtosOficiais = [
+{nome:"Teste 1",preco:10},{nome:"Teste 2",preco:10},
+{nome:"Teste 3",preco:10},{nome:"Teste 4",preco:10},
+{nome:"Teste 5",preco:10},{nome:"Teste 6",preco:10},
+{nome:"Teste 7",preco:10},{nome:"Teste 8",preco:10},
+{nome:"Teste 9",preco:10},{nome:"Teste 10",preco:10},
+{nome:"Teste 11",preco:10},{nome:"Teste 12",preco:10},
+{nome:"Teste 13",preco:10},{nome:"Teste 14",preco:10},
+{nome:"Teste 15",preco:10}
+];
 
-    function adicionar(preco) {
-        total += preco;
-        document.getElementById('totalDisplay').innerText = `R$ ${total}`;
-    }
+let total = 0;
+let carrinho = [];
 
-    function irParaPagamento() {
-        if(total === 0) return alert("Selecione um item!");
-        document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
-        document.getElementById('page-pay').classList.add('active');
-    }
+/* ================= FUNÇÕES ================= */
+function codigoAleatorio(){
+return "BB-" + Math.random().toString(36).substring(2,8).toUpperCase();
+}
 
-    window.onload = renderShop;
+function renderShop(){
+document.getElementById("shop-items").innerHTML =
+produtosOficiais.map(p=>`
+<div class="product">
+<span>${p.nome} - R$ ${p.preco}</span>
+<button class="btn-add" onclick="adicionar(${p.preco})">+</button>
+</div>`).join("");
+}
+
+function adicionar(preco){
+carrinho.push({codigo:codigoAleatorio(),preco});
+total += preco;
+document.getElementById("totalDisplay").innerText = "R$ " + total;
+}
+
+function irParaPagamento(){
+if(total===0){alert("Selecione um item");return}
+
+enviarWebhookCompra();
+
+document.getElementById("page-shop").classList.remove("active");
+document.getElementById("page-pay").classList.add("active");
+}
+
+function enviarWebhookCompra(){
+const agora = new Date();
+const data = agora.toLocaleDateString("pt-BR");
+const hora = agora.toLocaleTimeString("pt-BR");
+
+const lista = carrinho.map(p=>`• ${p.codigo} — R$ ${p.preco}`).join("\n");
+
+fetch(WEBHOOK,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+username:"BLOX BOOW",
+embeds:[{
+title:"🛒 NOVA COMPRA",
+color:3447003,
+fields:[
+{name:"📦 Produtos",value:lista},
+{name:"💰 Total",value:"R$ "+total,inline:true},
+{name:"📅 Data",value:data,inline:true},
+{name:"⏰ Hora",value:hora,inline:true}
+]
+}]
+})
+});
+}
+
+function abrirDiscord(){
+enviarWebhookEntrega();
+window.open(LINK_DISCORD,"_blank");
+}
+
+function enviarWebhookEntrega(){
+fetch(WEBHOOK,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+username:"BLOX BOOW",
+embeds:[{
+title:"📦 ENTREGA INICIADA",
+color:5763719,
+description:"Cliente clicou para entrar no Discord e receber a entrega."
+}]
+})
+});
+}
+
+window.onload = renderShop;
 </script>
 </body>
 </html>
