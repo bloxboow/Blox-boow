@@ -3,192 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Boow | Official Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Blox Boow - Loja Oficial</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: url('https://i.postimg.cc/JhSgZK5H/LOGO-GIF.gif') no-repeat center center fixed; background-size: cover; color: white; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: -1; }
-        .container { width: 100%; max-width: 550px; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(0, 212, 255, 0.4); border-radius: 25px; padding: 30px; text-align: center; }
-        h1 { font-family: 'Orbitron', sans-serif; color: #00d4ff; text-shadow: 0 0 15px #00d4ff; margin-bottom: 20px; }
-
-        /* PAINEL ADM */
-        #adminPanel { display: none; background: rgba(0, 212, 255, 0.1); border: 2px solid #00d4ff; padding: 20px; border-radius: 15px; margin-bottom: 25px; text-align: left; max-height: 450px; overflow-y: auto; }
-        .admin-input { background: rgba(0,0,0,0.8); border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; margin-bottom: 10px; width: 100%; font-size: 0.8rem; }
-
-        /* TELAS */
-        .step-page { display: none; animation: fadeIn 0.5s ease-in-out; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* PRODUTOS */
-        .product { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .btn-add { background: #00d4ff; color: #000; border: none; padding: 8px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        
-        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 8px; font-size: 0.8rem; }
-        .btn-desistir { background: #ff4d4d; color: white; border: none; padding: 4px 8px; border-radius: 5px; cursor: pointer; }
-        
-        .pix-box { background: rgba(0, 255, 100, 0.1); border: 2px dashed #00ff64; padding: 20px; border-radius: 15px; margin: 20px 0; }
-        .order-code { background: #ffcc00; color: black; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 1.2rem; margin: 15px 0; width: 100%; display: block; }
-
-        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; margin-top: 10px; }
-        .btn-next { background: #00d4ff; color: black; }
-        .btn-discord { background: #5865F2; color: white; animation: pulse 1.5s infinite; }
-        
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(88, 101, 242, 0); } 100% { box-shadow: 0 0 0 0 rgba(88, 101, 242, 0); } }
-        .footer-lock { margin-top: 30px; font-size: 0.6rem; opacity: 0.3; cursor: pointer; }
+        :root {
+            --primary: #7289da;
+            --bg: #0f0f0f;
+            --card: #1a1a1a;
+            --text: #ffffff;
+            --success: #2ecc71;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; text-align: center; }
+        h1 { color: var(--primary); margin-bottom: 30px; text-shadow: 0 0 10px rgba(114, 137, 218, 0.5); }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .produto { background: var(--card); border: 1px solid #333; padding: 15px; border-radius: 12px; width: 200px; transition: transform 0.2s; }
+        .produto:hover { transform: scale(1.05); border-color: var(--primary); }
+        .produto img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
+        .preco { color: var(--success); font-weight: bold; font-size: 1.2em; margin: 10px 0; }
+        .btn-comprar { background: var(--success); color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-comprar:hover { background: #27ae60; }
+        #admin-link { margin-top: 50px; color: #444; font-size: 0.8em; cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
-<div class="overlay"></div>
 
-<div class="container">
-    <h1>BLOX BOOW</h1>
-
-    <div id="adminPanel">
-        <h3 style="font-size:0.9rem; color:#00d4ff; margin-bottom:10px">🛠️ ADM - Pablo</h3>
-        <p style="font-size:0.6rem; color:#888; margin-bottom:5px;">Webhook configurado por Pablo ✅</p>
-        <input type="text" id="adminDiscord" class="admin-input" placeholder="Link do Convite Discord">
-        <input type="text" id="adminPix" class="admin-input" placeholder="Chave PIX">
-        <input type="text" id="itemName" class="admin-input" placeholder="Nome do Item">
-        <input type="number" id="itemPrice" class="admin-input" placeholder="Valor R$">
-        <button class="btn-add" onclick="saveConfigs()" style="width: 100%; background:#00ff64; margin-bottom:15px">SALVAR TUDO</button>
-        <button onclick="lockAdmin()" style="width:100%; background:none; color:white; border:1px solid #444; padding:5px; cursor:pointer">SAIR</button>
-    </div>
-
-    <div id="page-shop" class="step-page active">
-        <div id="shop-items"></div>
-        <div id="cart-area" style="margin-top:20px; border-top:1px solid #333; padding-top:20px;">
-            <div id="cart-list"></div>
-            <p style="font-size:1.5rem; margin:15px 0;">Total: <span id="totalDisplay" style="color:#00d4ff">R$ 0</span></p>
-            <button class="btn-action btn-next" onclick="irParaPagamento()">PAGAR AGORA</button>
-        </div>
-    </div>
-
-    <div id="page-pay" class="step-page">
-        <h2 style="color:#00ff64">💎 PAGAMENTO</h2>
-        <div class="pix-box">
-            <p style="font-size:0.8rem; margin-bottom:10px">CHAVE PIX:</p>
-            <strong id="pixDisplay" style="font-size:1.1rem; color:#fff">...</strong>
-        </div>
-        <p>Total: <strong id="totalPay" style="color:#00d4ff">R$ 0</strong></p>
-        <div class="order-code" id="codeDisplay">#CODE</div>
-        <button class="btn-action btn-next" onclick="irParaDiscord()">JÁ PAGUEI, PROSSEGUIR</button>
-    </div>
-
-    <div id="page-final" class="step-page">
-        <h2 style="color:#5865F2">QUASE LÁ!</h2>
-        <p style="margin:20px 0; font-size:0.9rem">O seu pedido foi registrado no sistema. Clique abaixo para abrir o ticket no Discord e enviar o comprovante.</p>
-        <button class="btn-action btn-discord" onclick="abrirDiscord()">ABRIR DISCORD OFICIAL</button>
-    </div>
-
-    <div class="footer-lock" onclick="unlockAdmin()">PAINEL ADM</div>
-</div>
-
-<script>
-    let cart = [];
-    let total = 0;
-    // O seu link de Webhook fixado no sistema:
-    const WEBHOOK_URL = "https://discord.com/api/webhooks/1466873848875061258/US-251gFKPtONW0j7WxwZQeLUdyAbjbPAL6NgZ-ptH7IwX3pSTdmGLecotmlJJ2MivZn";
+    <h1>💎 BLOX BOOW 💎</h1>
     
-    let config = JSON.parse(localStorage.getItem('blox_config')) || { discord: "", pix: "Não definida", produtos: [] };
+    <div class="container" id="lista-produtos">
+        </div>
 
-    function init() {
-        renderShop();
-        document.getElementById('pixDisplay').innerText = config.pix;
-    }
+    <div id="admin-link" onclick="loginAdm()">PAINEL ADMINISTRATIVO</div>
 
-    function unlockAdmin() {
-        if(prompt("Senha:") === "pablo08102009@") document.getElementById('adminPanel').style.display = 'block';
-    }
-
-    function lockAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
-
-    function renderShop() {
-        const container = document.getElementById('shop-items');
-        container.innerHTML = config.produtos.map((p, i) => `
-            <div class="product">
-                <span>${p.nome} - R$ ${p.preco}</span>
-                <button class="btn-add" onclick="addToCart('${p.nome}', ${p.preco})">+</button>
-            </div>
-        `).join('');
-    }
-
-    function saveConfigs() {
-        const d = document.getElementById('adminDiscord').value;
-        const p = document.getElementById('adminPix').value;
-        const n = document.getElementById('itemName').value;
-        const v = document.getElementById('itemPrice').value;
-        if(d) config.discord = d;
-        if(p) config.pix = p;
-        if(n && v) config.produtos.push({nome: n, preco: parseInt(v)});
-        localStorage.setItem('blox_config', JSON.stringify(config));
-        location.reload();
-    }
-
-    function addToCart(nome, preco) {
-        cart.push({nome, preco});
-        total += preco;
-        updateCart();
-    }
-
-    function updateCart() {
-        document.getElementById('cart-list').innerHTML = cart.map((item, i) => `
-            <div class="cart-item"><span>${item.nome}</span></div>
-        `).join('');
-        document.getElementById('totalDisplay').innerText = `R$ ${total}`;
-    }
-
-    async function enviarAvisoDiscord(codigo) {
-        const dataAtual = new Date();
-        const msg = {
-            embeds: [{
-                title: "🚨 NOVO PEDIDO - BLOX BOOW",
-                description: "Um cliente acaba de gerar um código de pagamento!",
-                color: 5814783,
-                fields: [
-                    { name: "🔢 Código do Pedido", value: `\`${codigo}\``, inline: true },
-                    { name: "💰 Valor Total", value: `**R$ ${total}**`, inline: true },
-                    { name: "🛒 Itens Comprados", value: cart.map(i => i.nome).join(', ') },
-                    { name: "🕒 Horário do Pedido", value: dataAtual.toLocaleString('pt-BR'), inline: false }
-                ],
-                thumbnail: { url: "https://i.postimg.cc/JhSgZK5H/LOGO-GIF.gif" },
-                footer: { text: "Sistema de Vendas Blox Boow | Pablo" },
-                timestamp: dataAtual
-            }]
+    <script>
+        // === CONFIGURAÇÕES GERAIS (ALTERE AQUI) ===
+        const config = {
+            pix: "COLOQUE_SEU_PIX_AQUI", // Sua chave PIX
+            discord: "https://discord.gg/SEU_LINK", // Link do seu servidor
+            senha: "pablo08102009@" // Sua senha de acesso
         };
 
-        try {
-            await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(msg)
-            });
-            console.log("Aviso enviado!");
-        } catch (e) {
-            console.error("Erro no Webhook", e);
+        // === LISTA DE PRODUTOS (ALTERE PREÇOS E NOMES AQUI) ===
+        const produtos = [
+            { id: 1, nome: "Fruta Dragon", preco: 50.00, img: "https://via.placeholder.com/150?text=Dragon" },
+            { id: 2, nome: "Fruta Kitsune", preco: 100.00, img: "https://via.placeholder.com/150?text=Kitsune" },
+            { id: 3, nome: "Dough", preco: 35.00, img: "https://via.placeholder.com/150?text=Dough" },
+            { id: 4, nome: "Gamepass 2x Money", preco: 40.00, img: "https://via.placeholder.com/150?text=Gamepass" }
+        ];
+
+        // Função para carregar os itens na tela
+        function renderizarProdutos() {
+            const lista = document.getElementById('lista-produtos');
+            lista.innerHTML = produtos.map(p => `
+                <div class="produto">
+                    <img src="${p.img}" alt="${p.nome}">
+                    <h3>${p.nome}</h3>
+                    <div class="preco">R$ ${p.preco.toFixed(2)}</div>
+                    <button class="btn-comprar" onclick="checkout(${p.id})">Comprar Agora</button>
+                </div>
+            `).join('');
         }
-    }
 
-    function irParaPagamento() {
-        if(cart.length === 0) return alert("Carrinho vazio!");
-        const cod = 'BOOW-' + Math.random().toString(36).substr(2, 4).toUpperCase();
-        document.getElementById('codeDisplay').innerText = cod;
-        document.getElementById('totalPay').innerText = `R$ ${total}`;
-        
-        enviarAvisoDiscord(cod); // DISPARA O AVISO PARA O SEU DISCORD
-        
-        showPage('page-pay');
-    }
+        // Função de compra
+        function checkout(id) {
+            const p = produtos.find(item => item.id === id);
+            const msg = `🛒 *PEDIDO - BLOX BOOW*\n\nProduto: ${p.nome}\nValor: R$ ${p.preco.toFixed(2)}\n\nPagamento via PIX: ${config.pix}\n\nEnvie o comprovante no Discord: ${config.discord}`;
+            alert(msg);
+        }
 
-    function irParaDiscord() { showPage('page-final'); }
-    function abrirDiscord() { window.open(config.discord, '_blank'); }
-    function showPage(id) {
-        document.querySelectorAll('.step-page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-    }
+        // Função do Painel ADM
+        function loginAdm() {
+            const tentativa = prompt("Digite a senha do administrador:");
+            if (tentativa === config.senha) {
+                alert("Acesso Autorizado! Pablo, para alterar preços ou produtos para todos os clientes, edite o código no seu GitHub.");
+            } else {
+                alert("Senha Incorreta.");
+            }
+        }
 
-    window.onload = init;
-</script>
+        // Iniciar site
+        renderizarProdutos();
+    </script>
 </body>
 </html>
